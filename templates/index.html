@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traductor Inglés-Español</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .main-container {
+            margin-top: 5vh;
+        }
+        
+        .card {
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: none;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        .word-display {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #4a5568;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin: 1rem 0;
+            transition: all 0.5s ease;
+        }
+        
+        .word-display.changing {
+            opacity: 0.3;
+            transform: scale(0.95);
+        }
+        
+        .input-group {
+            margin: 2rem 0;
+        }
+        
+        .form-control {
+            border-radius: 15px;
+            border: 2px solid #e2e8f0;
+            padding: 1rem;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        
+        .btn {
+            border-radius: 15px;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-info {
+            background: linear-gradient(45deg, #17a2b8, #20c997);
+            border: none;
+        }
+        
+        .btn-info:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(32, 201, 151, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(45deg, #6c757d, #495057);
+            border: none;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.4);
+        }
+        
+        .alert {
+            border-radius: 15px;
+            margin-top: 2rem;
+            border: none;
+            font-weight: 500;
+        }
+        
+        .alert-success {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+        }
+        
+        .alert-danger {
+            background: linear-gradient(45deg, #dc3545, #fd7e14);
+            color: white;
+        }
+        
+        .alert-info {
+            background: linear-gradient(45deg, #17a2b8, #6f42c1);
+            color: white;
+        }
+        
+        .definition-box {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            border-left: 5px solid #667eea;
+        }
+        
+        .title {
+            color: white;
+            text-align: center;
+            margin-bottom: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .stats {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+        
+        .loading {
+            display: none;
+        }
+        
+        .spinner-border {
+            width: 1rem;
+            height: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main-container">
+            <h1 class="title">
+                <i class="fas fa-language"></i>
+                Traductor Español-Inglés
+            </h1>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-10">
+                    <div class="card">
+                        <div class="card-body p-5">
+                            <div class="text-center">
+                                <h2 class="mb-4">Traduce esta palabra al inglés:</h2>
+                                <div class="word-display" id="englishWord">{{ english_word }}</div>
+                                <small class="text-muted">Escribe la traducción en inglés</small>
+                            </div>
+                            
+                            <form id="translationForm">
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-pen"></i>
+                                    </span>
+                                    <input type="text" 
+                                           class="form-control" 
+                                           id="translation" 
+                                           name="translation" 
+                                           placeholder="Escribe tu traducción aquí..."
+                                           autocomplete="off"
+                                           required>
+                                </div>
+                                
+                                <div class="d-flex justify-content-center flex-wrap">
+                                    <button type="submit" class="btn btn-primary" id="checkBtn">
+                                        <i class="fas fa-check"></i>
+                                        Comprobar
+                                        <span class="loading spinner-border ml-2" role="status"></span>
+                                    </button>
+                                    
+                                    <button type="button" class="btn btn-info" id="helpBtn">
+                                        <i class="fas fa-question-circle"></i>
+                                        Ayuda
+                                    </button>
+                                    
+                                    <button type="button" class="btn btn-secondary" id="newWordBtn">
+                                        <i class="fas fa-sync-alt"></i>
+                                        Nueva Palabra
+                                    </button>
+                                </div>
+                            </form>
+                            
+                            <!-- Results area -->
+                            <div id="resultArea"></div>
+                            
+                            <!-- Help/Definition area -->
+                            <div id="helpArea"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('translationForm');
+            const translationInput = document.getElementById('translation');
+            const checkBtn = document.getElementById('checkBtn');
+            const helpBtn = document.getElementById('helpBtn');
+            const newWordBtn = document.getElementById('newWordBtn');
+            const resultArea = document.getElementById('resultArea');
+            const helpArea = document.getElementById('helpArea');
+            const loading = document.querySelector('.loading');
+
+            // Focus on input when page loads
+            translationInput.focus();
+
+            // Handle form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                checkTranslation();
+            });
+
+            // Help button click
+            helpBtn.addEventListener('click', function() {
+                showHelp();
+            });
+
+            // New word button click
+            newWordBtn.addEventListener('click', function() {
+                getNewWord();
+            });
+
+            function showAnswerAndNext() {
+                const wordElement = document.getElementById('englishWord');
+                const currentWord = wordElement.textContent.trim();
+                
+                console.log('Current word:', currentWord); // Debug
+                
+                if (!currentWord) {
+                    console.log('No current word found');
+                    return;
+                }
+                
+                // Get the correct answer from server
+                fetch('/get_answer', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({word: currentWord})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Server response:', data); // Debug
+                    
+                    if (data.success) {
+                        // Show the correct answer
+                        const resultDiv = document.getElementById('resultArea');
+                        resultDiv.innerHTML = `
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <strong>Respuesta correcta:</strong> ${data.translation || 'No disponible'}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        `;
+                        
+                        // Clear the input
+                        document.getElementById('translation').value = '';
+                        
+                        // Automatically get a new word after showing the answer
+                        setTimeout(() => {
+                            getNewWord();
+                        }, 800); // Wait 0.8 seconds before getting new word
+                    } else {
+                        // Show error message
+                        const resultDiv = document.getElementById('resultArea');
+                        resultDiv.innerHTML = `
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <strong>Error:</strong> ${data.error || 'No se pudo obtener la traducción'}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    const resultDiv = document.getElementById('resultArea');
+                    resultDiv.innerHTML = `
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Error de conexión:</strong> No se pudo conectar al servidor
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    `;
+                });
+            }
+
+            function checkTranslation() {
+                const translation = translationInput.value.trim();
+                
+                if (!translation) {
+                    showAlert('Por favor, escribe una traducción.', 'danger');
+                    return;
+                }
+
+                showLoading(true);
+                
+                fetch('/check', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `translation=${encodeURIComponent(translation)}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    showLoading(false);
+                    
+                    if (data.status === 'correct') {
+                        showAlert(`¡Correcto! 🎉`, 'success');
+                        
+                        // Automatically show new word after correct answer
+                        if (data.new_word) {
+                            setTimeout(() => {
+                                // Add transition effect
+                                const wordElement = document.getElementById('englishWord');
+                                wordElement.classList.add('changing');
+                                
+                                setTimeout(() => {
+                                    wordElement.textContent = data.new_word;
+                                    wordElement.classList.remove('changing');
+                                    translationInput.value = '';
+                                    resultArea.innerHTML = '';
+                                    helpArea.innerHTML = '';
+                                    translationInput.focus();
+                                }, 250);
+                            }, 800); // Wait 0.8 seconds to show the success message
+                        }
+                    } else if (data.status === 'incorrect') {
+                        showAlert(`Incorrecto ❌<br><strong>Respuestas correctas:</strong> ${data.correct_translations || 'No disponible'}`, 'danger');
+                    } else {
+                        showAlert('Error al verificar la respuesta.', 'danger');
+                    }
+                })
+                .catch(error => {
+                    showLoading(false);
+                    console.error('Error:', error);
+                    showAlert('Error de conexión.', 'danger');
+                });
+            }
+
+            function showHelp() {
+                fetch('/help', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        helpArea.innerHTML = `
+                            <div class="definition-box">
+                                <h5><i class="fas fa-lightbulb"></i> Definición:</h5>
+                                <p class="mb-0">${data.definition}</p>
+                            </div>
+                        `;
+                    } else {
+                        showAlert('Error al obtener la ayuda.', 'danger');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showAlert('Error de conexión.', 'danger');
+                });
+            }
+
+            function getNewWord() {
+                showLoading(true);
+                
+                fetch('/new_word', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    showLoading(false);
+                    
+                    if (data.status === 'success') {
+                        // Add transition effect
+                        const wordElement = document.getElementById('englishWord');
+                        wordElement.classList.add('changing');
+                        
+                        setTimeout(() => {
+                            wordElement.textContent = data.new_word;
+                            wordElement.classList.remove('changing');
+                            translationInput.value = '';
+                            resultArea.innerHTML = '';
+                            helpArea.innerHTML = '';
+                            translationInput.focus();
+                        }, 250);
+                    } else {
+                        showAlert('Error al obtener nueva palabra.', 'danger');
+                    }
+                })
+                .catch(error => {
+                    showLoading(false);
+                    console.error('Error:', error);
+                    showAlert('Error de conexión.', 'danger');
+                });
+            }
+
+            function showAlert(message, type) {
+                const alertClass = type === 'success' ? 'alert-success' : 
+                                  type === 'danger' ? 'alert-danger' : 'alert-info';
+                
+                resultArea.innerHTML = `
+                    <div class="alert ${alertClass}" role="alert">
+                        ${message}
+                    </div>
+                `;
+            }
+
+            function showLoading(show) {
+                if (show) {
+                    loading.style.display = 'inline-block';
+                    checkBtn.disabled = true;
+                } else {
+                    loading.style.display = 'none';
+                    checkBtn.disabled = false;
+                }
+            }
+
+            // Allow Enter key to submit form
+            translationInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    checkTranslation();
+                }
+            });
+
+            // Allow Right Arrow key to show answer and get new word
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight') {
+                    console.log('Arrow right pressed!'); // Debug
+                    e.preventDefault();
+                    showAnswerAndNext();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
