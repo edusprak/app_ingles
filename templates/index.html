@@ -243,16 +243,30 @@
                 getNewWord();
             });
 
+            // Variable to track if answer is currently shown
+            let answerShown = false;
+
             function showAnswerAndNext() {
                 const wordElement = document.getElementById('englishWord');
                 const currentWord = wordElement.textContent.trim();
                 
-                console.log('Current word:', currentWord); // Debug
+                console.log('Arrow right pressed! Answer shown:', answerShown); // Debug
                 
                 if (!currentWord) {
                     console.log('No current word found');
                     return;
                 }
+
+                // If answer is already shown, go to next word
+                if (answerShown) {
+                    console.log('Answer already shown, getting new word...');
+                    getNewWord();
+                    answerShown = false; // Reset state
+                    return;
+                }
+
+                // If answer not shown yet, show it
+                console.log('Showing answer for:', currentWord);
                 
                 // Get the correct answer from server
                 fetch('/get_answer', {
@@ -272,6 +286,7 @@
                         resultDiv.innerHTML = `
                             <div class="alert alert-info alert-dismissible fade show" role="alert">
                                 <strong>Respuesta correcta:</strong> ${data.translation || 'No disponible'}
+                                <small class="d-block mt-2 text-muted">Presiona → otra vez para continuar</small>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                             </div>
                         `;
@@ -279,10 +294,8 @@
                         // Clear the input
                         document.getElementById('translation').value = '';
                         
-                        // Automatically get a new word after showing the answer
-                        setTimeout(() => {
-                            getNewWord();
-                        }, 800); // Wait 0.8 seconds before getting new word
+                        // Mark that answer is now shown, don't auto-advance
+                        answerShown = true;
                     } else {
                         // Show error message
                         const resultDiv = document.getElementById('resultArea');
@@ -329,6 +342,9 @@
                     
                     if (data.status === 'correct') {
                         showAlert(`¡Correcto! 🎉`, 'success');
+                        
+                        // Reset answer shown state
+                        answerShown = false;
                         
                         // Automatically show new word after correct answer
                         if (data.new_word) {
@@ -388,6 +404,9 @@
 
             function getNewWord() {
                 showLoading(true);
+                
+                // Reset answer shown state
+                answerShown = false;
                 
                 fetch('/new_word', {
                     method: 'POST',
