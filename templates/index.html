@@ -157,6 +157,29 @@
                 Traductor Español-Inglés
             </h1>
             
+            <!-- Lesson Selector -->
+            <div class="row justify-content-center mb-4">
+                <div class="col-lg-6 col-md-8">
+                    <div class="card">
+                        <div class="card-body p-3">
+                            <div class="d-flex align-items-center">
+                                <label for="lessonSelector" class="form-label me-3 mb-0">
+                                    <i class="fas fa-book"></i> Lección:
+                                </label>
+                                <select class="form-select" id="lessonSelector">
+                                    {% for lesson_key, lesson_data in available_lessons.items() %}
+                                        <option value="{{ lesson_key }}" 
+                                                {% if current_lesson and lesson_key == current_lesson.file.split('/')[-1] or lesson_key == current_lesson.file %}selected{% endif %}>
+                                            {{ lesson_data.name }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             <div class="row justify-content-center">
                 <div class="col-lg-8 col-md-10">
                     <div class="card">
@@ -223,9 +246,15 @@
             const resultArea = document.getElementById('resultArea');
             const helpArea = document.getElementById('helpArea');
             const loading = document.querySelector('.loading');
+            const lessonSelector = document.getElementById('lessonSelector');
 
             // Focus on input when page loads
             translationInput.focus();
+
+            // Handle lesson selection
+            lessonSelector.addEventListener('change', function() {
+                switchLesson(this.value);
+            });
 
             // Handle form submission
             form.addEventListener('submit', function(e) {
@@ -461,6 +490,49 @@
                     loading.style.display = 'none';
                     checkBtn.disabled = false;
                 }
+            }
+
+            function switchLesson(lessonKey) {
+                showLoading(true);
+                
+                fetch('/switch_lesson', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({lesson_key: lessonKey})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    showLoading(false);
+                    
+                    if (data.status === 'success') {
+                        // Add transition effect
+                        const wordElement = document.getElementById('englishWord');
+                        wordElement.classList.add('changing');
+                        
+                        setTimeout(() => {
+                            wordElement.textContent = data.new_word;
+                            wordElement.classList.remove('changing');
+                            translationInput.value = '';
+                            resultArea.innerHTML = '';
+                            helpArea.innerHTML = '';
+                            translationInput.focus();
+                            
+                            // Show success message with lesson info
+                            showAlert(`Cambiado a: ${data.lesson_name} (${data.word_count} palabras)`, 'success');
+                        }, 250);
+                    } else {
+                        showAlert(`Error: ${data.message}`, 'danger');
+                        // Revert selector to previous value if switch failed
+                        // Note: In a production app, you might want to track the previous value
+                    }
+                })
+                .catch(error => {
+                    showLoading(false);
+                    console.error('Error:', error);
+                    showAlert('Error de conexión al cambiar lección.', 'danger');
+                });
             }
 
             // Allow Enter key to submit form

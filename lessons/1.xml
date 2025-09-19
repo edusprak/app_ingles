@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dic from="es" to="en">
+<!-- Vocabulary from ESL Brains worksheet: Conversations we dread -->
+<l>
+    <w>
+        <c>calmar la tensión</c>
+        <d>to defuse tension</d>
+        <t>{phrase}</t>
+    </w>
+    <w>
+        <c>dejarse llevar, secuestrar por las emociones</c>
+        <d>to get hijacked by emotions</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>estabilizar los pensamientos</c>
+        <d>to stabilize your thoughts</d>
+        <t>{phrase}</t>
+    </w>
+    <w>
+        <c>separar, desenredar tus emociones de un asunto</c>
+        <d>to untangle your emotions from the subject matter</d>
+        <t>{phrase}</t>
+    </w>
+    <w>
+        <c>validar, reconocer los sentimientos de alguien</c>
+        <d>to validate someone's feelings, to acknowledge someone's feelings</d>
+        <t>{phrase}</t>
+    </w>
+    <w>
+        <c>desgarrador, traumático</c>
+        <d>gut-wrenching</d>
+        <t>{adj}</t>
+    </w>
+    <w>
+        <c>asumir la responsabilidad</c>
+        <d>to acknowledge responsibility</d>
+        <t>{phrase}</t>
+    </w>
+    <w>
+        <c>intervenir (en una conversación)</c>
+        <d>to chime in, to interject</d>
+        <t>{phrasal verb, verb}</t>
+    </w>
+    <w>
+        <c>en aras de la transparencia, con total transparencia</c>
+        <d>in the spirit of transparency, in the spirit of full disclosure</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>por decirlo suavemente</c>
+        <d>to put it mildly, to put it gently</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>entiendo tu punto de vista, sé por lo que pasas</c>
+        <d>I see where you're coming from, I know where you're coming from</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>por si sirve de algo</c>
+        <d>for what it's worth</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>para que lo sepas</c>
+        <d>just so you know</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>llegar a un acuerdo, encontrar un punto intermedio</c>
+        <d>to find the middle ground, to meet halfway</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>con toda honestidad, si te soy sincero</c>
+        <d>in all honesty, if I'm being honest</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>discusión acalorada</c>
+        <d>heated argument</d>
+        <t>{noun phrase}</t>
+    </w>
+    <w>
+        <c>sentirse abrumado, superado</c>
+        <d>to feel overwhelmed</d>
+        <t>{verb phrase}</t>
+    </w>
+    <w>
+        <c>dejar plantado a alguien</c>
+        <d>to bail on someone</d>
+        <t>{phrasal verb}</t>
+    </w>
+    <w>
+        <c>reaccionar de forma exagerada</c>
+        <d>to overreact</d>
+        <t>{verb}</t>
+    </w>
+    <w>
+        <c>despedir a alguien</c>
+        <d>to fire someone, to let someone go, to dismiss someone</d>
+        <t>{verb phrase}</t>
+    </w>
+    <w>
+        <c>renunciar a tu trabajo</c>
+        <d>to quit your job, to resign</d>
+        <t>{verb phrase}</t>
+    </w>
+    <w>
+        <c>admitir el fracaso</c>
+        <d>to admit failure</d>
+        <t>{verb phrase}</t>
+    </w>
+    <w>
+        <c>tratar con un cliente enfadado</c>
+        <d>to deal with an upset customer</d>
+        <t>{verb phrase}</t>
+    </w>
+    <w>
+        <c>enfrentar a un amigo</c>
+        <d>to confront a friend</d>
+        <t>{verb phrase}</t>
+    </w>
+    <w>
+        <c>negociar los términos</c>
+        <d>to negotiate terms</d>
+        <t>{verb phrase}</t>
+    </w>
+    
+    <!-- Communication & Expression -->
+    <w>
+        <c>ir directo al grano</c>
+        <d>to get straight to the point</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>andarse con rodeos</c>
+        <d>to beat around the bush</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>desahogarse</c>
+        <d>to get something off your chest</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>reprimir las emociones</c>
+        <d>to bottle up your emotions</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>con el debido respeto</c>
+        <d>with all due respect</d>
+        <t>{phrase}</t>
+    </w>
+    <w>
+        <c>abordar el tema tabú</c>
+        <d>to address the elephant in the room</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>leer entre líneas</c>
+        <d>to read between the lines</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>no andarse con contemplaciones</c>
+        <d>to not mince words</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>permíteme reformularlo</c>
+        <d>let me rephrase that</d>
+        <t>{phrase}</t>
+    </w>
+    <w>
+        <c>en pocas palabras</c>
+        <d>in a nutshell</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>tener una conversación sincera</c>
+        <d>to have a heart-to-heart</d>
+        <t>{idiom}</t>
+    </w>
+    
+    <!-- Conflict & Disagreement -->
+    <w>
+        <c>aclarar las cosas</c>
+        <d>to clear the air</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>estar en total desacuerdo</c>
+        <d>to be at loggerheads</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>no estar de acuerdo</c>
+        <d>to not see eye to eye</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>la manzana de la discordia</c>
+        <d>a bone of contention</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>pasarse de la raya</c>
+        <d>to cross the line</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>guardar rencor</c>
+        <d>to hold a grudge</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>enterrar el hacha de guerra</c>
+        <d>to bury the hatchet</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>echar más leña al fuego</c>
+        <d>to add fuel to the fire</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>un tema delicado</c>
+        <d>a sore spot, a sensitive subject</d>
+        <t>{noun phrase}</t>
+    </w>
+    <w>
+        <c>perder los estribos</c>
+        <d>to fly off the handle, to lose your cool</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>tomarse algo a pecho</c>
+        <d>to take something to heart</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>estar nervioso, irritable</c>
+        <d>to be on edge</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>andar con pies de plomo con alguien</c>
+        <d>to walk on eggshells around someone</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>sentirse menospreciado</c>
+        <d>to feel slighted, to feel undervalued</d>
+        <t>{verb phrase}</t>
+    </w>
+    <w>
+        <c>sentirse decepcionado</c>
+        <d>to feel let down</d>
+        <t>{verb phrase}</t>
+    </w>
+    
+    <!-- Negotiation & Compromise -->
+    <w>
+        <c>mantenerse firme</c>
+        <d>to stand your ground</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>ceder terreno</c>
+        <d>to give ground, to concede a point</d>
+        <t>{idiom, phrase}</t>
+    </w>
+    <w>
+        <c>situación en la que todos ganan</c>
+        <d>a win-win situation</d>
+        <t>{noun phrase}</t>
+    </w>
+    <w>
+        <c>llegar a un punto muerto</c>
+        <d>to reach a stalemate, to reach an impasse</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>mejorar la oferta</c>
+        <d>to sweeten the deal</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>lo mínimo aceptable, el resultado final</c>
+        <d>the bottom line</d>
+        <t>{noun}</t>
+    </w>
+    <w>
+        <c>jugar duro (negociando)</c>
+        <d>to play hardball</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>punto de partida</c>
+        <d>common ground</d>
+        <t>{noun}</t>
+    </w>
+    <w>
+        <c>estar en la misma onda</c>
+        <d>to be on the same page</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>margen de maniobra</c>
+        <d>leeway, room for maneuver</d>
+        <t>{noun}</t>
+    </w>
+    <w>
+        <c>inquebrantable, no negociable</c>
+        <d>non-negotiable</d>
+        <t>{adj}</t>
+    </w>
+    
+    <!-- Workplace Scenarios -->
+    <w>
+        <c>crítica constructiva</c>
+        <d>constructive criticism, constructive feedback</d>
+        <t>{noun}</t>
+    </w>
+    <w>
+        <c>tener un bajo rendimiento</c>
+        <d>to underperform</d>
+        <t>{verb}</t>
+    </w>
+    <w>
+        <c>ser despedido (por reestructuración)</c>
+        <d>to be laid off, to be made redundant</d>
+        <t>{verb phrase}</t>
+    </w>
+    <w>
+        <c>finiquito, indemnización por despido</c>
+        <d>severance package</d>
+        <t>{noun}</t>
+    </w>
+    <w>
+        <c>presentar la dimisión</c>
+        <d>to hand in your notice</d>
+        <t>{verb phrase}</t>
+    </w>
+    <w>
+        <c>plantear una preocupación</c>
+        <d>to raise a concern</d>
+        <t>{verb phrase}</t>
+    </w>
+    <w>
+        <c>elevar un problema (a un superior)</c>
+        <d>to escalate an issue</d>
+        <t>{verb phrase}</t>
+    </w>
+    <w>
+        <c>evaluación de desempeño</c>
+        <d>performance review</d>
+        <t>{noun}</t>
+    </w>
+    <w>
+        <c>meter la pata, cometer un error</c>
+        <d>to drop the ball</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>asumir la responsabilidad de un error</c>
+        <d>to own up to a mistake</d>
+        <t>{phrasal verb}</t>
+    </w>
+    <w>
+        <c>discrepancia</c>
+        <d>discrepancy</d>
+        <t>{noun}</t>
+    </w>
+    <w>
+        <c>conflicto de intereses</c>
+        <d>conflict of interest</d>
+        <t>{noun}</t>
+    </w>
+    <w>
+        <c>queja, reclamación</c>
+        <d>grievance</d>
+        <t>{noun}</t>
+    </w>
+    
+    <!-- Personal Relationships -->
+    <w>
+        <c>romper con alguien</c>
+        <d>to break up with someone</d>
+        <t>{phrasal verb}</t>
+    </w>
+    <w>
+        <c>tenemos que hablar</c>
+        <d>we need to talk</d>
+        <t>{phrase}</t>
+    </w>
+    <w>
+        <c>distanciarse (en una relación)</c>
+        <d>to drift apart</d>
+        <t>{phrasal verb}</t>
+    </w>
+    <w>
+        <c>establecer límites</c>
+        <d>to set boundaries</d>
+        <t>{verb phrase}</t>
+    </w>
+    <w>
+        <c>hacerle el vacío a alguien</c>
+        <d>to give someone the cold shoulder</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>arreglar las cosas, reconciliarse</c>
+        <d>to patch things up</d>
+        <t>{phrasal verb}</t>
+    </w>
+    <w>
+        <c>silencio incómodo</c>
+        <d>awkward silence</d>
+        <t>{noun phrase}</t>
+    </w>
+    <w>
+        <c>superarlo, pasar página</c>
+        <d>to move on, to get over it</d>
+        <t>{phrasal verb}</t>
+    </w>
+    <w>
+        <c>las cosas no van bien</c>
+        <d>to be on the rocks</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>una relación tóxica</c>
+        <d>a toxic relationship</d>
+        <t>{noun phrase}</t>
+    </w>
+    <w>
+        <c>tener una riña, pelearse</c>
+        <d>to have a falling out</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>traicionar la confianza de alguien</c>
+        <d>to betray someone's trust</d>
+        <t>{verb phrase}</t>
+    </w>
+    
+    <!-- General Phrases for Difficult Conversations -->
+    <w>
+        <c>seamos francos</c>
+        <d>let's be frank, let's be candid</d>
+        <t>{phrase}</t>
+    </w>
+    <w>
+        <c>no es personal, son negocios</c>
+        <d>it's not personal, it's just business</d>
+        <t>{phrase}</t>
+    </w>
+    <w>
+        <c>me temo que tengo malas noticias</c>
+        <d>I'm afraid I have some bad news</d>
+        <t>{phrase}</t>
+    </w>
+    <w>
+        <c>no hay una manera fácil de decir esto</c>
+        <d>there's no easy way to say this</d>
+        <t>{phrase}</t>
+    </w>
+    <w>
+        <c>pongámonos en tu lugar</c>
+        <d>let me put myself in your shoes</d>
+        <t>{phrase}</t>
+    </w>
+    <w>
+        <c>necesito que me escuches</c>
+        <d>I need you to hear me out</d>
+        <t>{phrase}</t>
+    </w>
+    <w>
+        <c>podemos estar de acuerdo en no estar de acuerdo</c>
+        <d>we can agree to disagree</d>
+        <t>{phrase}</t>
+    </w>
+    <w>
+        <c>vamos a dejarlo por ahora</c>
+        <d>let's put a pin in it for now</d>
+        <t>{idiom}</t>
+    </w>
+    <w>
+        <c>consecuencias no deseadas</c>
+        <d>unintended consequences</d>
+        <t>{noun}</t>
+    </w>
+    <w>
+        <c>un malentendido</c>
+        <d>a misunderstanding</d>
+        <t>{noun}</t>
+    </w>
+    <w>
+        <c>aclarar una confusión</c>
+        <d>to clear up a confusion</d>
+        <t>{verb phrase}</t>
+    </w>
+    <w>
+        <c>resultado, desenlace</c>
+        <d>outcome</d>
+        <t>{noun}</t>
+    </w>
+    <w>
+        <c>comportamiento</c>
+        <d>behaviour, conduct</d>
+        <t>{noun}</t>
+    </w>
+    <w>
+        <c>flexible</c>
+        <d>flexible</d>
+        <t>{adj}</t>
+    </w>
+    <w>
+        <c>empático</c>
+        <d>empathetic</d>
+        <t>{adj}</t>
+    </w>
+    <w>
+        <c>frustrado</c>
+        <d>frustrated</d>
+        <t>{adj}</t>
+    </w>
+    <w>
+        <c>resentido</c>
+        <d>resentful</d>
+        <t>{adj}</t>
+    </w>
+</l>
+</dic>

@@ -3,12 +3,18 @@ import xml.etree.ElementTree as ET
 import random
 import re
 import unicodedata
+import os
+import glob
 
 app = Flask(__name__)
 app.secret_key = 'your-secret-key-change-this'
 
 # Dictionary to store all words and translations
 dictionary = {}
+
+# Available lessons and dictionaries
+available_lessons = {}
+current_dictionary_file = 'dict_es_en.xml'
 
 def normalize_text(text):
     """
@@ -82,13 +88,59 @@ def parse_translations(translations_text):
     
     return result
 
-def load_dictionary():
+def discover_lessons():
+    """
+    Discover all XML lesson files in the lessons directory
+    """
+    global available_lessons
+    available_lessons = {}
+    
+    # Add the main dictionary
+    available_lessons['dict_es_en.xml'] = {
+        'name': 'Diccionario completo',
+        'file': 'dict_es_en.xml',
+        'type': 'main'
+    }
+    
+    # Discover lesson files in the lessons directory
+    lessons_dir = 'lessons'
+    if os.path.exists(lessons_dir):
+        lesson_files = glob.glob(os.path.join(lessons_dir, '*.xml'))
+        print(f"DEBUG: Found lesson files: {lesson_files}")
+        for lesson_file in lesson_files:
+            filename = os.path.basename(lesson_file)
+            lesson_name = os.path.splitext(filename)[0]
+            
+            # Create display name
+            display_name = f"Lección {lesson_name}"
+            
+            print(f"DEBUG: Adding lesson - key: '{filename}', name: '{display_name}', file: '{lesson_file}'")
+            
+            available_lessons[filename] = {
+                'name': display_name,
+                'file': lesson_file,
+                'type': 'lesson'
+            }
+    
+    print(f"Discovered {len(available_lessons)} dictionaries/lessons")
+    return available_lessons
+
+def load_dictionary(dict_file=None):
     """
     Load the XML dictionary into memory
     """
-    global dictionary
+    global dictionary, current_dictionary_file
+    
+    if dict_file is None:
+        dict_file = current_dictionary_file
+    else:
+        current_dictionary_file = dict_file
+    
+    # Clear the dictionary before loading new content
+    dictionary = {}
+    
     try:
-        tree = ET.parse('dict_es_en.xml')
+        tree = ET.parse(dict_file)
         root = tree.getroot()
         
         for word_elem in root.findall('.//w'):
@@ -115,10 +167,10 @@ def load_dictionary():
                     'definition': definition
                 }
         
-        print(f"Loaded {len(dictionary)} words from dictionary")
+        print(f"Loaded {len(dictionary)} words from {dict_file}")
         
     except Exception as e:
-        print(f"Error loading dictionary: {e}")
+        print(f"Error loading dictionary {dict_file}: {e}")
         # Fallback dictionary for testing
         dictionary = {
             "casa": {
@@ -143,10 +195,19 @@ def index():
     session['current_word'] = spanish_word
     session['help_shown'] = False
     
+    # Get current lesson info
+    current_lesson_info = None
+    for lesson_key, lesson_data in available_lessons.items():
+        if lesson_data['file'] == current_dictionary_file:
+            current_lesson_info = lesson_data
+            break
+    
     return render_template('index.html', 
                          english_word=spanish_word,  # Keep this name for template compatibility
                          spanish_word=spanish_word,
-                         help_shown=False)
+                         help_shown=False,
+                         available_lessons=available_lessons,
+                         current_lesson=current_lesson_info)
 
 @app.route('/check', methods=['POST'])
 def check_translation():
@@ -253,6 +314,59 @@ def new_word():
         'new_word': new_spanish_word
     })
 
+@app.route('/switch_lesson', methods=['POST'])
+def switch_lesson():
+    """
+    Switch to a different lesson/dictionary
+    """
+    try:
+        data = request.get_json()
+        lesson_key = data.get('lesson_key', '').strip()
+        
+        print(f"DEBUG: Requested lesson_key: '{lesson_key}'")
+        print(f"DEBUG: Available lessons: {list(available_lessons.keys())}")
+        
+        if not lesson_key or lesson_key not in available_lessons:
+            print(f"DEBUG: Lesson key '{lesson_key}' not found in available lessons")
+            return jsonify({
+                'status': 'error',
+                'message': 'Lección no válida'
+            })
+        
+        lesson_info = available_lessons[lesson_key]
+        dict_file = lesson_info['file']
+        
+        print(f"DEBUG: Loading dictionary file: '{dict_file}'")
+        
+        # Load the new dictionary
+        load_dictionary(dict_file)
+        
+        if not dictionary:
+            return jsonify({
+                'status': 'error',
+                'message': 'Error al cargar la lección'
+            })
+        
+        # Select a new random word from the new dictionary
+        new_spanish_word = random.choice(list(dictionary.keys()))
+        
+        # Store the new word in session
+        session['current_word'] = new_spanish_word
+        session['help_shown'] = False
+        
+        return jsonify({
+            'status': 'success',
+            'new_word': new_spanish_word,
+            'lesson_name': lesson_info['name'],
+            'word_count': len(dictionary)
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        })
+
 @app.route('/help', methods=['POST'])
 def get_help():
     """
@@ -279,5 +393,6 @@ def get_help():
     })
 
 if __name__ == '__main__':
+    discover_lessons()
     load_dictionary()
     app.run(debug=True, host='0.0.0.0')
